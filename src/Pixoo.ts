@@ -1,18 +1,16 @@
 import { Buffer } from 'buffer';
-import type {
-  PixooSize, RGB, Position, ImageResampleMode,
-} from './types';
+import type { ImageResampleMode, PixooSize, Position, RGB } from './types';
 import FONT_PICO_8 from './utils/font';
 
 import { getHttpGifId, postBuffer } from './services/pixoo';
-import { PixooCommand, Colors } from './types';
+import { Colors, PixooCommand } from './types';
 
 import {
-  clampColor, loadImage, resizeImage, toImageBuffer,
+  clampColor, loadImage, resizeImage, toImageBuffer
 } from './utils/utils';
 
 export default class Pixoo {
-  ip: string;
+  host: string;
 
   picId: number = 0;
 
@@ -20,8 +18,8 @@ export default class Pixoo {
 
   buffer: RGB[] = [];
 
-  constructor(ip: string, size: PixooSize) {
-    this.ip = ip;
+  constructor(host: string, size: PixooSize) {
+    this.host = host;
     this.size = size;
   }
 
@@ -136,7 +134,7 @@ export default class Pixoo {
   }
 
   get url() {
-    return `http://${this.ip}/post`;
+    return `${this.host}/post`;
   }
 
   get pixelCount() {
